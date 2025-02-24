@@ -10,7 +10,7 @@
 
 - instance of a class
 
-``` 
+``` Java
 class Calc{
     public int add(int a, int b){
         int r = a + b;
@@ -44,7 +44,7 @@ public class Demo{
 
 
 - compile-time polymorphism(method overloading)
-```
+```Java
 // method overloading
 class Calc{
     public int add(int a, int b){
