@@ -1,33 +1,17 @@
 package Basics;
 
-class A{
 
-    public A(){
-        super();
-        System.out.println("in A");
-    }
 
-    public A(int n){
-        System.out.println("in A int");
-    }
-
-}
-
-class B extends A{
-    public B(){
-        super(5);
-        System.out.print("in B");
-    }
-
-    public B(int n){
-        this();
-        System.out.print("in B int");
-    }
-}
-
-public class Demo{
+ public class Demo{
     public static void main(String args[]){
-        B obj = new B();
+        int num = 7;
+        Integer num1 = num; // autoboxing
+        
+        int num2 = num1.intValue(); // auto-unboxing
+        System.out.println(num2);
 
+        String str = "12";
+        int i = Integer.parseInt(str);
+        System.out.println(i * 4);
     }
-}
+ }
