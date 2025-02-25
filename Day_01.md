@@ -187,6 +187,7 @@ class Mobile{
     }
 }
 ```
+_________________________
 
 ## this keyword
 
@@ -261,7 +262,41 @@ public class Demo{
 }
 ```
 ## this method
+- example:
+```java
+class A{
 
+    public A(){
+        super();
+        System.out.println("in A");
+    }
+
+    public A(int n){
+        super();
+        System.out.println("in A int");
+    }
+
+}
+
+class B extends A{
+    public B(){
+        super();
+        System.out.println("in B");
+    }
+
+    public B(int n){
+        this();
+        System.out.println("in B int");
+    }
+}
+
+public class Demo{
+    public static void main(String args[]){
+        B obj = new B(10);
+
+    }
+}
+```
 
 ## super method 
 - Example:
@@ -331,14 +366,159 @@ public class Demo{
 ## Naming conventions
 
 - Camel casing
-class and interface - Calc, Runable
-variable and method - marks, show()
-constants - PIE, BRAND
 
-showMyMarks()
-MyData
+- class and interface - Calc, Runable
 
-constructor - Bhai()
+- variable and method - marks, show()
+
+- constants - PIE, BRAND
+
+- showMyMarks()
+- MyData
+
+- constructor - Bhai()
+
+______________________
+## packages
+- a set of classes, interfaces, and sub-packages that are similar
+### there are two types of packages:
+- built-in packages
+- user-defined packages
+
+_______________________
+
+## Access modifiers
+<ol>
+<li><b>public</b>: Within the class, Within the package, Outside the package but through child only, outside the package </li>
+<li><b>private</b>: only within the class</li>
+<li><b>default</b>: only Within the class and Within the package</li>
+<li><b>protected</b>: only Within the class,  Within the package and Outside the package but through child only</li>
+</ol>
+
+
+|                    | Public | Protected | Default | Private |
+|--------------------|--------|-----------|---------|---------|
+|Same Class          | Yes    | Yes       | Yes     | Yes     |
+|Same Package        | Yes    | Yes       | Yes     | No      |    
+|Same Pack Sub Class | Yes    | Yes       | Yes     | No      |
+|Diff Pack Sub CLass | Yes    | Yes       | No      | No      |
+|Dif Pack No SubClass| Yes    | No        | No      | No      |
+
+_________________________________
+
+## final keyword
+### final variable
+once the final variable is created it cannot be changed.
+
+Ex: 
+```java 
+final int s = 9;// it is 9 until the end 
+```
+### final class 
+when the final keywod is used on class i.e 
+```java 
+final class A{
+} 
+```
+then this final class cannot be inherited
+
+### final method
+when the final keyword is used on the method i.e
+```java
+class A{
+   public final void show(){
+    System.out.println("Sai");
+   } 
+}
+
+class B extends A{
+    public void show(){
+        System.out.println("Kaushik");
+    }
+}
+
+public class Demo{
+    public static void main(String args[]){
+        B b = new B(); 
+        b.show();
+    }
+}
+```
+then we can prevent overriding from occuring.
+
+________________________
+## Type Casting:
+```Java
+public class Demo{
+    public static void main(String args[]){
+        double d = 4.5;
+        int i = (int) d;
+        System.out.println(i);
+    }
+ }
+ ```
+
+### Upcasting and Downcasting
+<b>Upcasting:</b>
+<ol>
+    <li>Converting a subclass reference to a superclass reference </li>
+    <li>Also known as widening or generalizing </li>
+</ol>
+
+<b>Downcasting: </b>
+<ol>
+<li>Converting a superclass reference to a subclass reference</li>
+<li>Also known as narrowing or type refinement</li>
+</ol>
+
+Example:
+
+```Java
+class A{
+    public void show1(){
+        System.out.println("in A show");
+    }
+}
+
+class B extends A{
+    public void show2(){
+        System.out.println("in B show");
+    }
+} 
+
+ public class Demo{
+    public static void main(String args[]){
+        A obj = (A) new B();// UpCasting 
+        obj.show1();
+
+        B obj1 = (B) obj;// downCasting
+        obj1.show2();
+    }
+ }
+
+```
+________________________
+## Wrapper Classes
+- Integer: The wrapper class for the primitive data type int
+- Character: The wrapper class for the primitive data type char
+- Double: The wrapper class for the primitive data type double
+
+
+```Java
+ public class Demo{
+    public static void main(String args[]){
+        int num = 7;
+        Integer num1 = num; // autoboxing
+        
+        int num2 = num1.intValue(); // auto-unboxing
+        System.out.println(num2);
+
+        String str = "12";
+        int i = Integer.parseInt(str);
+        System.out.println(i * 4);
+    }
+ }
+```
 __________________
 ## Object Oriented Programming
 
@@ -346,9 +526,9 @@ __________________
 - instance of a class
 - anonymous objects
     - can be only be used once
-    syntax:
+
     ```Java 
-    new A() 
+    new A();
     ```
 
 ``` Java
@@ -377,7 +557,7 @@ public class Demo{
 - blueprint for creating objects
 
 
-### encapsulation
+### Encapsulation
 - is a process of wrapping code and data together into a single unit.
 
 - It provides you the control over the data.
@@ -477,10 +657,70 @@ public class Demo{
 
 ### polymorphism
 
-- run-time polymorphism(method overriding)
+- run-time polymorphism(method overriding)(Late Binding)
+- different classes, same method name
 
 
-- compile-time polymorphism(method overloading)
+```Java
+class Calc{
+    public int add(int n1, int n2){
+        return n1 + n2;
+    }
+}
+
+class AdvCalc extends Calc{
+    public int add(int n1, int n2){
+        return n1 + n2 + 1;
+    }
+    
+}
+
+public class Demo{
+    public static void main(String args[]){
+        AdvCalc obj = new AdvCalc();
+        int res = obj.add(10, 2);
+        System.out.println(res);
+    }
+}
+```
+
+#### Dynamic Method Dispatch 
+```Java
+
+class A{
+    public void show(){
+        System.out.println("in A show");
+    }
+}
+class B extends A {
+    public void show(){
+        System.out.println("in B show");
+    }
+}
+
+class C extends A {
+    public void show(){
+        System.out.println("in C show");
+    }
+}
+public class Demo{
+    public static void main(String args[]){
+        A obj = new A();
+        obj.show();
+        
+        obj = new B();
+        obj.show();
+        
+        obj = new C();
+        obj.show();
+        
+
+    }
+}
+```
+
+- compile-time polymorphism(method overloading)(Early Binding)
+- same class, same method name, different parameters
 ```Java
 // method overloading
 class Calc{
@@ -503,3 +743,6 @@ public class Demo{
 
 }
 ```
+
+### Abstraction
+- Hiding internal implementation and showing functionality only to the user 
