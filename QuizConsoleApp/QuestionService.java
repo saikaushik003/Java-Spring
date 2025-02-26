@@ -18,18 +18,24 @@ public class QuestionService {
 
         for(Question q: questions){
             System.out.println(q.getId() + ". "+ q.getQuestion());
-            System.out.println("[1]." + q.getOpt1());
-            System.out.println("[2]." + q.getOpt2());
-            System.out.println("[3]." + q.getOpt3());
-            System.out.println("[4]." + q.getOpt4());
+            System.out.println("[1]. " + q.getOpt1());
+            System.out.println("[2]. " + q.getOpt2());
+            System.out.println("[3]. " + q.getOpt3());
+            System.out.println("[4]. " + q.getOpt4());
             Scanner sc = new Scanner(System.in);
 
             System.out.print("Enter your choice: ");
             int answer = sc.nextInt();
             res[i] = answer;
             ans[i] = q.getAnswer();
-
+            if(answer == q.getAnswer()){
+                System.out.println("Feedback: Good Job!");
+            }
+            else{
+                System.out.println("Feedback: Wrong Choice!");
+            }
             i++;
+            System.out.println();
         }
         
     }
