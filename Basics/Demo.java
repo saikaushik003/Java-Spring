@@ -1,32 +1,20 @@
 package Basics;
 
-enum Laptop{
-    Macbook(2000), XPS(2200), Surface, Lenovo(1800);
-    
-    private int price;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 
-    private Laptop() {
-        this.price = 500;
+public class Demo {
+
+    public static void main(String[] args) throws IOException{
+        System.out.println("Enter a number: ");
+        
+        InputStreamReader in = new InputStreamReader(System.in);
+        BufferedReader br = new BufferedReader(in);
+
+        int num = Integer.parseInt(br.readLine());
+        System.out.println(num);
+
+        br.close();
     }
-
-    private Laptop(int price) {
-        this.price = price;
-    }
-
-    public int getPrice() {
-        return price;
-    }
-
-    public void setPrice(int price) {
-        this.price = price;
-    }
-
 }
-
- public class Demo{
-    public static void main(String args[]){
-       for(Laptop lap: Laptop.values()){
-            System.out.println(lap + ": "+lap.getPrice());
-       }
-    }
- }

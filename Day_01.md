@@ -962,9 +962,40 @@ class B implements A {
     }
  }
 ```
+
+#### Types of Interface
+- Normal
+- Functional Interface / Simple Abstract method(only one method)
+- Marker Interface(no mathods in this interface)
 ________________________________________
 
+### Anotations
 
+```java
+class A{
+    
+    public void showTheDataWhichBelongsToThisClass(){
+        System.out.println("in A show");
+    }
+}
+
+class B extends A{
+    @Override //anotation
+    public void showTheDataWhichBelongsToThisClass(){
+        System.out.println("in B show");
+    }
+}
+
+public class Demo {
+
+    public static void main(String[] args){
+        B obj = new B();
+        obj.showTheDataWhichBelongsToThisClass();
+    }
+}
+```
+
+_________________________________________
 ### Enumerate(enum):
 
 - we cannot extend enum class. otherwise it acts like a class
@@ -1002,3 +1033,98 @@ enum Laptop{
     }
  }
  ```
+
+
+ ## Lambda Expression
+- can be used in interfaces
+
+example:
+```java
+//lamda without return
+@FunctionalInterface
+interface A{
+    public abstract void show();
+}
+
+public class Demo {
+
+    public static void main(String[] args){
+        A obj = () -> System.out.println("in show");//using lambda
+        obj.show();
+    }
+}
+```
+
+```java
+//lambda with return 
+
+@FunctionalInterface
+interface A{
+    public abstract int add(int i, int j);
+}
+
+public class Demo {
+
+    public static void main(String[] args){
+        A obj = (i, j) -> i + j;
+        
+        
+        int res = obj.add(5, 10);
+        System.out.println(res);
+    }
+}
+```
+
+
+
+
+_______________________________________
+
+## Exceptions 
+Run time errors are called Exceptions
+types
+- RunTIme Exceptions(Unchecked Exceptions)
+    - can be handled
+
+    - ArithmeticException
+    - ArrayIndexOutOfBoundsException
+    - NullPointerException
+
+- Checked Exceptions
+    - cannot be handled
+
+    - IO Exception
+    - SQL Exception
+
+### Exception Handling
+- try(): If an exception occurs at the particular statement in the try block, the rest of the block code will not execute
+- catch(): is used to handle the Exception
+- finally(): code in this block will run even if there are exceptions or not(mostly used for closing files at the end).
+- throw: it is used to throwing exception using our own Exceptions
+- throws: ducking the exception that method i.e doesnot stop
+
+
+```java 
+public class Demo {
+
+    public static void main(String[] args){
+        int i = 0;
+        int j = 0;
+
+        try{
+            j = 18 / i;
+        }
+        catch(Exception e){
+            System.out.println("Zero Division Error");
+
+        }
+
+        System.out.println(j);
+        System.out.println("Bye");
+    }
+}
+```
+
+
+_______________________________
+
