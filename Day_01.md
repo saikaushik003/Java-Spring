@@ -551,12 +551,119 @@ public class Demo{
 
 }
 ```
-
+__________________________
 ### classes
 
 - blueprint for creating objects
 
+- Inner class
+```java
+class A{
+    int age;
+    public void show(){
+        System.out.println("in show");
+    }
+    class  B{
+        public void config(){
+            System.out.println("in config");
+        }
+    }
+}
+ public class Demo{
+    public static void main(String args[]){
+        A a = new A();
+        a.show();
+        
+        A.B obj = a.new B();//to call the inner class
+        obj.config();
 
+    }
+ }
+```
+- static can be used only for the inner class. 
+- if B is a static inner class.
+
+```java
+class A{
+    int age;
+    public void show(){
+        System.out.println("in show");
+    }
+    static class  B{
+        public void config(){
+            System.out.println("in config");
+        }
+    }
+}
+ public class Demo{
+    public static void main(String args[]){
+        A a = new A();
+        a.show();
+
+        A.B obj = new A.B();//can be called like this directly
+        obj.config();
+
+    }
+ }
+```
+
+- Anonymous Inner Class:
+syntax:
+```java
+A obj = new A()
+        {
+            public void show(){
+                System.out.println("in new show");
+            }
+        };
+obj.show();
+```
+
+```java
+
+class A{
+    public void show(){
+        System.out.println("in A show");
+    }
+}
+
+
+ public class Demo{
+    public static void main(String args[]){
+        A obj = new A()
+        {
+            public void show(){
+                System.out.println("in new show");
+            }
+        };
+
+        obj.show();
+
+    }
+ }
+```
+
+- using abstract method
+
+```java
+abstract class A{
+    public abstract void show();
+}
+
+ public class Demo{
+    public static void main(String args[]){
+        A obj = new A(){
+            
+            public void show(){
+                System.out.println("in new show");
+            }
+        };
+        obj.show();
+    }
+ }
+```
+
+___________________________
 ### Encapsulation
 - is a process of wrapping code and data together into a single unit.
 
@@ -601,7 +708,7 @@ public class Demo{
 ```
 
 
-
+________________________
 
 ### inheritance
 - allows one class to inherit features from another class
@@ -650,10 +757,7 @@ public class Demo{
 <li>Hybrid inheritance</li>
 </ol>
 
-
-
-
-
+____________________________
 
 ### polymorphism
 
@@ -744,5 +848,157 @@ public class Demo{
 }
 ```
 
+_____________________________________
+### Abstract keyword
+- is used to create a abstract class and method.(i.e if you create a abstract method then it should be in abstract class only)
+
+- if other class extends abstract class then there should be abstract method in that extended class.
+
+- Abstract class cannot be called it should have a sub class to call it.
+
+- Abstract class can also contain non abstract methods also.
+
+```Java
+abstract class Car {
+    public abstract void drive();
+
+    public void playMusic(){
+        System.out.println("play music");
+    }
+}
+
+class WagonR extends Car {
+    public void drive(){
+        System.out.println("driving WagonR");
+    }
+}
+
+ public class Demo{
+    public static void main(String args[]){
+        WagonR obj = new WagonR();
+       obj.drive();
+       obj.playMusic();
+
+
+    }
+ }
+```
+
 ### Abstraction
 - Hiding internal implementation and showing functionality only to the user 
+
+__________________________
+### interfaces
+- all the variables in the interfaces are final and static.
+
+- interfaces are not classes and only contain abstract methods.
+
+- to extend interfaces with interfaces we use extends keyword
+
+- syntax
+
+```java
+interface X{
+    public abstract void run();
+}
+
+interface Y extends X{
+}
+
+```
+
+
+- uses implements keyword to implement through a class(can implement multiple interfaces)
+
+
+- syntax:
+```java
+interface A{
+    public abstract void show();
+    public abstract void config();
+}
+interface X{
+    public abstract void run();
+    
+}
+class B implements A, X{
+    public void show(){
+        
+    }
+    public void config(){
+
+    }
+    public void config(){
+
+    }
+}
+```
+
+
+```java
+interface A{
+    int age = 44; //final and static
+    String area = "Bombay";
+    
+    public abstract void show();
+    public abstract void config();
+}
+class B implements A {
+    public void show(){
+        System.out.println("in show");
+    }
+    public void config(){
+        System.out.println("in config");
+    }
+    
+}
+ public class Demo{
+    public static void main(String args[]){
+        A obj = new B();
+        obj.show();
+        obj.config();
+        System.out.println(A.area);
+
+    }
+ }
+```
+________________________________________
+
+
+### Enumerate(enum):
+
+- we cannot extend enum class. otherwise it acts like a class
+
+```java
+enum Laptop{
+    Macbook(2000), XPS(2200), Surface, Lenovo(1800);
+    
+    private int price;
+
+    private Laptop() {
+        this.price = 500;
+    }
+
+    private Laptop(int price) {
+        this.price = price;
+    }
+
+    public int getPrice() {
+        return price;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
+    }
+
+}
+
+ public class Demo{
+    public static void main(String args[]){
+        //Laptop lap = Laptop.values();
+        for(Laptop lap: Laptop.values()){
+            System.out.println(lap + ": "+lap.getPrice());
+       }
+    }
+ }
+ ```
