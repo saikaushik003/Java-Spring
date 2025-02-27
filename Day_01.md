@@ -1303,7 +1303,7 @@ class Counter
 ## Thread states
 ![alt text](image-2.png)
 
-
+__________________________________________
 ## Collections
 
 - uses generic classes <>
@@ -1314,4 +1314,123 @@ class Counter
 
 - Set
     - HashSet<>()
-    -for sorted set we can use TreeSet<>();
+    - for sorted set we can use TreeSet<>();
+
+- HashMap
+    - key values pairs
+    ```java
+
+    import java.util.*;
+    public class Demo {
+
+    public static void main(String[] args) {
+        HashMap<String, Integer> students = new HashMap<>();
+        students.put("sai", 10);
+        students.put("kaushik", 9);
+        students.put("anna", 8);
+        System.out.println(students.keySet());
+
+        for(String i: students.keySet()){
+            System.out.println(i + ":" + students.get(i));
+        }
+
+    }
+
+    ```
+_______________________________
+
+## comparable and comaparator
+
+comparable interface when impleted by other classes should contain compareTo method in that class.
+
+comparator
+```java
+    Comparator<Integer> com = new Comparator<Integer>() {
+            public int compare(Integer i, Integer j){
+                return i > j ? 1:-1;
+            }
+        };
+
+```
+
+
+comparable
+
+```java
+import java.util.*;
+
+
+class Student implements Comparable<Student>{
+
+    int age;
+    String name;
+
+    public Student(int age, String name){
+        this.age = age;
+        this.name = name;
+    }
+
+    public String toString(){
+        return "sname: "+ name + ", " +"age: "+ age;
+    }
+
+    public int compareTo(Student that){
+        if(this.age > that.age){
+            return 1;
+        }
+        else{
+            return -1;
+        }
+    }
+
+}
+public class Demo {
+
+    public static void main(String[] args) throws InterruptedException{
+        Comparator<Student> comp = (Student i, Student j) -> i.age > j.age ? 1:-1;
+
+        List<Student> n = new ArrayList<>();
+        n.add(new Student(21, "sai"));
+        n.add(new Student(11, "kaushik"));
+        n.add(new Student(12, "bhai"));
+        n.add(new Student(71, "anna"));
+
+        Collections.sort(n, comp);
+        System.out.println(n);
+
+
+    }
+}
+```
+_______________________________________________
+- forEach:
+    - syntax:
+    ```java
+    nums.forEach(n -> System.out.println(n));
+    ```
+______________________________
+## stream 
+each stream can only be used once
+
+```java
+import java.util.*;
+import java.util.stream.Stream;
+import java.util.function.*;;
+public class Demo {
+
+    public static void main(String[] args){
+        
+        List<Integer> nums = Arrays.asList(4,5,7,2, 6, 3);
+        
+        // Stream<Integer> s1 = nums.stream();//ArrayList to stream
+        // Stream<Integer> s2 = s1.filter(n -> n % 2 == 0);
+        // Stream<Integer> s3 = s2.map(n -> n + 2);
+        // int res = s3.reduce(0, (c, e)-> c + e);
+
+        int res = nums.stream().filter(n -> n % 2 == 0).map(n -> n + 2).reduce(0, (c, e)-> c + e);
+
+        System.out.println(res);
+    }
+}
+```
+
