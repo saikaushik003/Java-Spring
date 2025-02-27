@@ -1128,3 +1128,190 @@ public class Demo {
 
 _______________________________
 
+## Threads
+- we can perform multiple tasks activities within a single process.
+- Lightweight process.
+
+- built-in methods
+    - a.start();
+    - a.setPriority(Thread.MAX_PRIORITY)
+    - a.getPriority();
+    - Thread.sleep(10);
+
+
+
+- syntax:
+```java
+class A extends Thread{
+    public void run(){
+
+    }
+}
+class B extends Thread{
+    public void run(){
+
+    }
+}
+public class Demo{
+    public static void main(String[] args){
+        A a = new A();
+        B a = new B();
+        a.start();
+        b.start();
+
+    }
+}
+```
+
+if a.start() there should be a run() method in class A.
+
+## Runnable
+- interface 
+
+```java
+
+
+
+/**class A implements Runnable{
+    public void run(){
+        for(int i = 1; i < 5; i++){
+            System.out.println("hi");
+            try {
+                Thread.sleep(10);
+            } catch (InterruptedException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        }
+    }
+}
+
+class B implements Runnable{
+    public void run(){
+        for(int i = 1; i < 5; i++){
+            System.out.println("hello");
+            try {
+                Thread.sleep(10);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            
+        }
+    }
+}**/
+
+
+public class Demo {
+
+    public static void main(String[] args){
+        Runnable a = () -> {
+            for(int i = 1; i < 1000; i++){
+                System.out.println("hi");
+                try {
+                    Thread.sleep(10);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                
+            }
+        };
+        
+        Runnable b = () -> {
+            for(int i = 1; i < 5; i++){
+                System.out.println("hello");
+                try {
+                    Thread.sleep(10);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                
+            }
+        };
+
+        Thread t1 =  new Thread(a);
+        Thread t2 =  new Thread(b);
+        
+
+        t1.start();
+        t2.start();
+        
+        
+    }
+}
+```
+
+## Race condition
+- occurs when multiple threads try to access the same resource simultaneously
+- Multiple threads accessing shared data without synchronization
+
+```java
+class Counter
+{
+    int count;
+    public void increment(){
+        count++;
+    }
+}
+
+
+public class Demo {
+
+    public static void main(String[] args) throws InterruptedException{
+        Counter c = new Counter();
+        
+        Runnable a = () -> {
+            for(int i = 1; i < 1000; i++){
+                c.increment();
+            }
+        };
+        
+        Runnable b = () -> {
+            for(int i = 1; i < 1000; i++){
+                c.increment();
+            }
+        };
+
+        Thread t1 =  new Thread(a);
+        Thread t2 =  new Thread(b);
+        
+
+        t1.start();
+        t2.start();
+
+        t1.join();
+        t2.join();
+        
+        
+        System.out.println(c.count);
+        
+    }
+}
+```
+
+- for syncronized
+```java
+class Counter
+{
+    int count;
+    public synchronized void increment(){
+        count++;
+    }
+}
+```
+
+
+## Thread states
+![alt text](image-2.png)
+
+
+## Collections
+
+- uses generic classes <>
+
+- ArrayList
+    - nums.get(0)//returns nums[0]
+    - nums.indexOf(10)// returns index of 10 in list
+
+- Set
+    - HashSet<>()
+    -for sorted set we can use TreeSet<>();

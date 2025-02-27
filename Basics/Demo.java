@@ -1,20 +1,23 @@
 package Basics;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+
+import java.util.*;
+
 
 public class Demo {
 
-    public static void main(String[] args) throws IOException{
-        System.out.println("Enter a number: ");
+    public static void main(String[] args) throws InterruptedException{
+        List<Integer> w = new ArrayList<>();
+        w.add(5);
+        w.add(8);
+        w.add(2);
         
-        InputStreamReader in = new InputStreamReader(System.in);
-        BufferedReader br = new BufferedReader(in);
+        Iterator it = w.iterator();
+        while(it.hasNext()){
+            System.out.println(it.next());
+        }
 
-        int num = Integer.parseInt(br.readLine());
-        System.out.println(num);
 
-        br.close();
+
     }
 }
