@@ -1412,25 +1412,116 @@ ______________________________
 ## stream 
 each stream can only be used once
 
+## Stream
+
+-  It is used to simplify List operations in Java
+
+- Like javascript to use filter, map, reduce or so one features n list objects we use the stream
+
+- One major takeaway is stream objects are single time usable objects
+
+- When we do operations on stream objects they return a stream as well.
+
+
 ```java
-import java.util.*;
-import java.util.stream.Stream;
-import java.util.function.*;;
-public class Demo {
-
-    public static void main(String[] args){
+List<Integer> nums = new ArrayList<>();
         
-        List<Integer> nums = Arrays.asList(4,5,7,2, 6, 3);
-        
-        // Stream<Integer> s1 = nums.stream();//ArrayList to stream
-        // Stream<Integer> s2 = s1.filter(n -> n % 2 == 0);
-        // Stream<Integer> s3 = s2.map(n -> n + 2);
-        // int res = s3.reduce(0, (c, e)-> c + e);
+nums.add(70);
+nums.add(96);
+nums.add(33);
+nums.add(18);
+nums.add(16);
 
-        int res = nums.stream().filter(n -> n % 2 == 0).map(n -> n + 2).reduce(0, (c, e)-> c + e);
+System.out.println(nums);
 
-        System.out.println(res);
-    }
-}
+// To get sum of even numbers after doubling there values 
+List<Integer> resNums = nums.stream()
+.filter( n -> n%2==0)
+.map(n -> n*2)
+.toList();
+
+System.out.println(resNums);
+// reduce(initial value, (accumulator, current element) -> (operation));
+int total = resNums.stream().reduce(0,(acc,ele) -> acc+ele);
+
+System.out.println(total);
+
 ```
 
+_________________
+
+## Parallel Stream
+
+- To use filter or map kind of methods using multi-thread instead of Single thread
+
+- Parallel Stream is useful generally on large data (>10^4)
+
+
+```java
+
+List<Integer> nums = new ArrayList<>();
+
+Random ran = new Random();
+
+for(int i = 0; i < 10000; i++){
+    nums.add(ran.nextInt(100));
+}
+
+// Stream
+long startSTime = System.currentTimeMillis();
+int sum = nums.stream()
+.mapToInt(n -> n*2)
+.sum();
+long endSTime = System.currentTimeMillis();
+
+
+System.out.println("Stream total: "+ sum +" in Time(millisecs): " + (endSTime-startSTime));
+// Output - Stream total: 982536 in Time(millisecs): 7
+
+
+System.out.println();
+// Parallel Stream
+long startPTime = System.currentTimeMillis();
+int sum1 = nums.parallelStream()
+.mapToInt(n -> n*2)
+.sum();
+long endPTime = System.currentTimeMillis();
+
+System.out.println("Parallel Stream total: "+ sum1 +" in Time(millisecs): " + (endPTime-startPTime));
+// Output - Parallel Stream total: 982536 in Time(millisecs): 3
+
+```
+
+
+# Optional class 
+
+- It is used to avoid the 'null point exception' in the java code
+
+
+```java
+List<String> names = List.of("Bhuvan", "Keerthi", "Nani", "Meenu");
+
+// To find if there is name with "M" in it.
+
+Optional<String> name = names.stream()
+.filter( n -> n.contains("M"))
+.findFirst();
+
+System.out.println(name.orElse("Not Found any name with 'M'"));
+```
+
+
+- When we use findFirst() for a stream we get a Optional class so to reduce we could use .orElse() or get() after the findFirst() method.
+
+```java
+List<String> names = List.of("Bhuvan", "Keerthi", "Nani", "Meenu");
+
+// To find if there is name with "M" in it.
+String name = names.stream()
+// For char insensitive check 
+.filter( n -> n.toLowerCase().contains("M".toLowerCase())) 
+.findFirst()
+.orElse("Not Found any name with 'M'");
+
+System.out.println(name);
+```
